@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>सब कुछ घर बैठे न्यूज़ • अतरौली परिक्षेत्र</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Devanagari", sans-serif;
+      background-color: #F8F9FA;
+      color: #1D1D1F;
+      -webkit-font-smoothing: antialiased;
+    }
+    .apple-glass {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(230, 232, 236, 0.85);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    }
+    .pill-tag {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(220, 224, 230, 0.9);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pill-tag:hover {
+      transform: translateY(-2px);
+      border-color: #E31B23;
+      box-shadow: 0 4px 14px rgba(227, 27, 35, 0.12);
+    }
+    @keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes float2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+    .anim-1 { animation: float1 6s ease-in-out infinite; }
+    .anim-2 { animation: float2 7.5s ease-in-out infinite; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white">
+
+  <!-- हेडर (मुख्य हिंदी लोगो skgb.png) -->
+  <header class="sticky top-0 z-50 apple-glass border-b border-neutral-200/80 px-4 sm:px-8 py-3">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- मुख्य ब्रांड लोगो (skgb.png) -->
+        <img src="skgb.png" alt="सब कुछ घर बैठे न्यूज़" class="h-10 sm:h-12 w-auto object-contain" onerror="this.src='https://placehold.co/180x60/E31B23/ffffff?text=सब+कुछ+घर+बैठे+न्यूज़'" />
+        <div class="hidden sm:block border-l border-neutral-300 pl-3">
+          <span class="text-xs font-semibold text-neutral-800 block leading-tight">तहसील एवं विकास खंड स्तरीय डिजिटल संवाद नेटवर्क</span>
+          <span class="text-[10px] text-neutral-500 font-medium">स्वतंत्र एवं निष्पक्ष ग्रामीण पत्रकारिता मंच</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2.5">
+        <a href="#track-status" class="text-xs px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium transition">
+          आई-कार्ड स्थिति
+        </a>
+        <a href="#join-section" class="text-xs px-3.5 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-medium shadow-sm transition">
+          नेटवर्क से जुड़ें
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- मुख्य सामग्री -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full flex-1">
+    
+    <!-- हीरो सेक्शन -->
+    <section class="text-center max-w-2xl mx-auto mb-10 pt-2">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-semibold mb-4">
+        <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+        <span>सत्यापित ग्रामीण सूचना तंत्र</span>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 mb-3">
+        हर ग्राम पंचायत की आवाज़, निष्पक्ष संवाद
+      </h1>
+      <p class="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed">
+        अतरौली तहसील के सभी 234 ग्राम पंचायतों तक विस्तृत, विश्वसनीय और जनहितकारी संवाद का स्वतंत्र डिजिटल मंच। अपने क्षेत्र का सशक्त नेतृत्व करें।
+      </p>
+    </section>
+
+    <!-- लाइव फ्लोटिंग पंचायत टैग्स (सीधे Google Sheet से लाइव लोड) -->
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-3 px-2">
+        <div class="flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span class="text-xs font-bold tracking-wider uppercase text-neutral-500">लाइव क्षेत्रीय पंचायतें (मास्टर डेटा)</span>
+        </div>
+        <span id="loadBadge" class="text-xs text-neutral-400 font-medium">Google Sheet से कनेक्ट हो रहा है...</span>
+      </div>
+
+      <div class="apple-glass rounded-3xl p-6 sm:p-8 min-h-[160px] flex flex-wrap gap-2.5 items-center justify-center content-center border border-neutral-200" id="tagsContainer">
+        <div class="text-xs text-neutral-400 flex items-center py-6">
+          <svg class="animate-spin -ml-1 mr-2.5 h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          Google Sheet से पंचायतों की सूची लोड की जा रही है...
+        </div>
+      </div>
+    </section>
+
+    <!-- सहभागिता के दो सशक्त स्तंभ -->
+    <section class="mb-14">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <h2 class="text-xl font-bold text-neutral-900">सहभागिता के दो सशक्त स्तंभ</h2>
+        <p class="text-xs text-neutral-500 mt-1">आप अपनी रुचि और भूमिका के अनुसार नेटवर्क का हिस्सा बन सकते हैं</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- ट्रैक 1: ग्राम प्रतिनिधि (सिटिजन रिपोर्टर विंग) - 'S' लोगो युक्त -->
+        <div class="apple-glass rounded-3xl p-6 sm:p-7 border border-neutral-200 relative overflow-hidden flex flex-col justify-between hover:border-red-300 transition">
+          <div class="absolute top-0 right-0 w-28 h-28 bg-red-500/5 rounded-full -mr-8 -mt-8 pointer-events-none"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <!-- रिपोर्टर विंग का विशेष 'S' सिंबल लोगो -->
+              <img src="skgb news .jpg" alt="Reporter Wing Icon" class="w-12 h-12 rounded-2xl shadow-sm object-cover border border-neutral-200" onerror="this.src='https://placehold.co/80x80/E31B23/ffffff?text=S'" />
+              <span class="text-[11px] px-2.5 py-1 rounded-full bg-red-50 text-red-600 font-semibold border border-red-100">
+                फील्ड रिपोर्टर विंग
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-neutral-900 mb-1">ग्राम प्रतिनिधि (सिटिजन रिपोर्टर)</h3>
+            <p class="text-xs text-red-600 font-medium mb-3">गाँव की ज़मीनी खबरों का सशक्त माध्यम</p>
+            <ul class="text-xs text-neutral-600 space-y-2 mb-6">
+              <li class="flex items-start">
+                <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                पंचायत स्तर की समस्याओं, विकास कार्यों व महत्वपूर्ण घटनाओं की सीधी रिपोर्टिंग।
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                संपादकीय सत्यापन के पश्चात डिजिटल रिपोर्टर पहचान-पत्र (Press / Reporter ID)।
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                क्षेत्रीय डिजिटल मंच पर खबरों का प्राथमिकता से प्रकाशन।
+              </li>
+            </ul>
+          </div>
+          <a href="#join-section" onclick="selectRole('Reporter')" class="inline-block text-center py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-black text-white text-xs font-semibold transition">
+            रिपोर्टर के रूप में आवेदन करें
+          </a>
+        </div>
+
+        <!-- ट्रैक 2: जन-सहयोगी एवं मार्गदर्शक (गोपनीय सूत्र) -->
+        <div class="apple-glass rounded-3xl p-6 sm:p-7 border border-neutral-200 relative overflow-hidden flex flex-col justify-between hover:border-neutral-400 transition">
+          <div class="absolute top-0 right-0 w-28 h-28 bg-neutral-900/5 rounded-full -mr-8 -mt-8 pointer-events-none"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-neutral-100 text-neutral-800 flex items-center justify-center text-2xl border border-neutral-200">
+                🤝
+              </div>
+              <span class="text-[11px] px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-600 font-semibold border border-neutral-200">
+                गोपनीय सहयोग
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-neutral-900 mb-1">जन-सहयोगी / मार्गदर्शक (गोपनीय सूत्र)</h3>
+            <p class="text-xs text-neutral-500 font-medium mb-3">परामर्श, तथ्य-जाँच एवं संवेदनशील सूचना</p>
+            <ul class="text-xs text-neutral-600 space-y-2 mb-6">
+              <li class="flex items-start">
+                <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                गाँव के प्रतिष्ठित प्रबुद्ध जन, शिक्षक, पूर्व सैनिक व सामाजिक कार्यकर्ताओं के लिए।
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                खबरों की सत्यता की पुष्टि, सामयिक सलाह एवं प्रामाणिक सूचनाएं साझा करना।
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                <strong>पूर्ण गोपनीयता की गारंटी:</strong> व्यक्तिगत पहचान कभी सार्वजनिक नहीं की जाएगी।
+              </li>
+            </ul>
+          </div>
+          <a href="#join-section" onclick="selectRole('Mentor')" class="inline-block text-center py-2.5 px-4 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-semibold transition">
+            सहयोगी के रूप में जुड़ें
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- पंजीकरण फॉर्म (3-स्तरीय चयन: तहसील > ब्लॉक > ग्राम पंचायत) -->
+    <section id="join-section" class="max-w-xl mx-auto mb-14">
+      <div class="apple-glass rounded-3xl p-6 sm:p-9 border border-neutral-200 shadow-sm">
+        <div class="flex items-center space-x-3 mb-6">
+          <img src="skgb.png" alt="SKGB Main" class="h-10 w-auto object-contain" onerror="this.style.display='none'" />
+          <div>
+            <h2 class="text-xl font-bold text-neutral-900">नेटवर्क पंजीकरण फॉर्म</h2>
+            <p class="text-xs text-neutral-500">अपना सही विवरण दर्ज करें; संपादकीय सत्यापन के उपरांत संपर्क किया जाएगा।</p>
+          </div>
+        </div>
+
+        <form id="regForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+          <!-- नाम -->
+          <div>
+            <label class="block text-xs font-semibold text-neutral-700 mb-1">पूरा नाम</label>
+            <input type="text" id="userName" required placeholder="अपना पूरा नाम दर्ज करें"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-white/80 border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition" />
+          </div>
+
+          <!-- मोबाइल नंबर -->
+          <div>
+            <label class="block text-xs font-semibold text-neutral-700 mb-1">मोबाइल नंबर (WhatsApp)</label>
+            <input type="tel" id="userMobile" required pattern="[0-9]{10}" placeholder="10 अंकों का व्हाट्सएप नंबर"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-white/80 border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition" />
+          </div>
+
+          <!-- सहभागिता भूमिका -->
+          <div>
+            <label class="block text-xs font-semibold text-neutral-700 mb-1">सहभागिता का स्वरूप (भूमिका)</label>
+            <select id="userRole" class="w-full px-3.5 py-2.5 rounded-xl bg-white/80 border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition">
+              <option value="Reporter">ग्राम प्रतिनिधि (सिटिजन रिपोर्टर - 'S' विंग)</option>
+              <option value="Mentor">जन-सहयोगी / मार्गदर्शक</option>
+              <option value="Confidential Source">गोपनीय सूत्र (सूचना प्रदाता)</option>
+            </select>
+          </div>
+
+          <!-- 3-स्टेप चयन (तहसील > ब्लॉक > पंचायत) -->
+          <div class="pt-3 border-t border-neutral-200/70 space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-neutral-700 mb-1">तहसील</label>
+              <select id="tahsilSelect" disabled class="w-full px-3.5 py-2.5 rounded-xl bg-neutral-100 border border-neutral-300 text-sm text-neutral-700 font-medium">
+                <option value="Atrauli">अतरौली (Atrauli)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-neutral-700 mb-1">विकास खंड (Block)</label>
+              <select id="blockSelect" required onchange="onBlockChange()"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-white/80 border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition">
+                <option value="">— ब्लॉक का चयन करें —</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-neutral-700 mb-1">ग्राम पंचायत</label>
+              <select id="panchayatSelect" required disabled
+                class="w-full px-3.5 py-2.5 rounded-xl bg-white/80 border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition disabled:bg-neutral-100 disabled:text-neutral-400">
+                <option value="">— पहले ब्लॉक का चयन करें —</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- आचार संहिता और डिस्क्लेमर चेक -->
+          <div class="pt-2">
+            <label class="flex items-start space-x-2 text-[11px] text-neutral-500 cursor-pointer">
+              <input type="checkbox" required class="mt-0.5 rounded border-neutral-300 text-red-600 focus:ring-red-500" />
+              <span>मैं प्रमाणित करता/करती हूँ कि दी गई जानकारी सत्य है और मैं डिजिटल मीडिया आचार संहिता व पत्रकारिता के नैतिक नियमों का पालन करूँगा/करूँगी।</span>
+            </label>
+          </div>
+
+          <!-- सबमिट बटन -->
+          <div class="pt-2">
+            <button type="submit" id="submitBtn"
+              class="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold tracking-tight shadow-md transition active:scale-[0.99] flex items-center justify-center">
+              <span>आवेदन सुरक्षित दर्ज करें</span>
+            </button>
+          </div>
+
+          <div id="formMsg" class="hidden text-center text-xs py-2.5 px-3 rounded-xl mt-2 font-medium"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- डिजिटल आई-कार्ड / आवेदन स्थिति ट्रैकर -->
+    <section id="track-status" class="max-w-xl mx-auto mb-14">
+      <div class="apple-glass rounded-3xl p-6 sm:p-8 border border-neutral-200">
+        <div class="text-center mb-5">
+          <div class="inline-block p-2 rounded-xl bg-neutral-100 text-neutral-800 mb-2">🔍</div>
+          <h3 class="text-base font-bold text-neutral-900">डिजिटल आई-कार्ड / आवेदन स्थिति</h3>
+          <p class="text-xs text-neutral-500">पंजीकरण के बाद अपने मोबाइल नंबर द्वारा सत्यापन स्थिति देखें</p>
+        </div>
+
+        <div class="flex gap-2">
+          <input type="tel" id="trackMobile" placeholder="पंजीकृत 10 अंकों का मोबाइल नंबर"
+            class="flex-1 px-3.5 py-2 rounded-xl bg-white/80 border border-neutral-300 text-xs focus:outline-none focus:border-neutral-900" />
+          <button type="button" onclick="trackApplicationStatus()"
+            class="px-4 py-2 rounded-xl bg-neutral-900 hover:bg-black text-white text-xs font-semibold transition">
+            जाँचें
+          </button>
+        </div>
+
+        <div id="statusResult" class="hidden mt-4 p-4 rounded-2xl border text-xs">
+          <!-- लाइव स्टेटस कार्ड -->
+        </div>
+      </div>
+    </section>
+
+    <!-- शिकायत निवारण तंत्र (Grievance Redressal - IT Rules 2021) -->
+    <section class="max-w-3xl mx-auto mb-10">
+      <div class="rounded-3xl p-6 bg-neutral-100/80 border border-neutral-200 text-xs text-neutral-700">
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="text-base">⚖️</span>
+          <h4 class="font-bold text-sm text-neutral-900">शिकायत निवारण तंत्र (Grievance Redressal Mechanism)</h4>
+        </div>
+        <p class="text-[11px] text-neutral-600 mb-3 leading-relaxed">
+          सूचना प्रौद्योगिकी (मध्यवर्ती दिशानिर्देश और डिजिटल मीडिया आचार संहिता) नियम, 2021 के अनुपालन में, 'सब कुछ घर बैठे न्यूज़' पर प्रकाशित किसी भी सामग्री या रिपोर्टर आचरण के संबंध में शिकायत निवारण हेतु अधिकृत विवरण:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] bg-white p-3.5 rounded-2xl border border-neutral-200/70">
+          <div>
+            <span class="text-neutral-400 block">अधिकारी का नाम एवं पद:</span>
+            <span class="font-semibold text-neutral-900">कृष्ण कांत भारद्वाज (Grievance Redressal Officer)</span>
+          </div>
+          <div>
+            <span class="text-neutral-400 block">आधिकारिक संपर्क ईमेल:</span>
+            <span class="font-semibold text-neutral-900">contact@sabkuchhgharbaithe.com</span>
+          </div>
+          <div class="sm:col-span-2">
+            <span class="text-neutral-400 block">कार्यालय पता:</span>
+            <span class="font-semibold text-neutral-900">सब कुछ घर बैठे न्यूज़, ग्राम: नहल, तहसील: अतरौली, जिला: अलीगढ़, उत्तर प्रदेश - 202280</span>
+          </div>
+        </div>
+        <p class="text-[10px] text-neutral-500 mt-2">
+          * किसी भी आपत्ति या सुधार हेतु 24 घंटे के भीतर पावती दी जाती है और नियमानुसार 15 कार्यदिवसों में उचित विधिक निस्तारण किया जाता है।
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- फुटर -->
+  <footer class="py-6 text-center text-xs text-neutral-400 border-t border-neutral-200/80 bg-white/60">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center space-x-2">
+        <img src="skgb.png" alt="Logo" class="h-5 w-auto object-contain opacity-70" onerror="this.style.display='none'" />
+        <span>© 2026 सब कुछ घर बैठे न्यूज़ • अतरौली परिक्षेत्र</span>
+      </div>
+      <p class="text-[11px] text-neutral-400">पत्रकारिता की शुचिता, सत्यनिष्ठा एवं ग्रामीण सशक्तिकरण को समर्पित</p>
+    </div>
+  </footer>
+
+  <!-- जावास्क्रिप्ट एकीकरण -->
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0J7GrsmXcCyAj8gQnSxAYg_PXMcmhN_r_gj-lXeYV55_GIlt9yrtzHxbUDT5xKQ7c/exec";
+
+    let masterData = [];
+
+    // पेज लोड पर Google Sheet से 234 ग्राम पंचायतों की सूची फेच करना
+    window.addEventListener("DOMContentLoaded", () => {
+      fetchPanchayats();
+    });
+
+    async function fetchPanchayats() {
+      try {
+        const res = await fetch(SCRIPT_URL);
+        const data = await res.json();
+        masterData = data;
+
+        renderFloatingPills(data);
+        populateBlocks(data);
+
+        document.getElementById("loadBadge").textContent = `${data.length} पंचायतें ऑनलाइन`;
+      } catch (err) {
+        console.error("Fetch error:", err);
+        document.getElementById("loadBadge").textContent = "डेटा लोड में समस्या";
+        document.getElementById("tagsContainer").innerHTML = 
+          `<p class="text-xs text-red-500 py-3">Google Sheet से डेटा कनेक्ट नहीं हो सका। कृपया पुनः प्रयास करें।</p>`;
+      }
+    }
+
+    // होम स्क्रीन पर तैरते हुए पंचायतों के नाम
+    function renderFloatingPills(list) {
+      const container = document.getElementById("tagsContainer");
+      container.innerHTML = "";
+
+      const sample = list.slice(0, 32);
+      sample.forEach((item, i) => {
+        const pill = document.createElement("div");
+        const anim = (i % 2 === 0) ? 'anim-1' : 'anim-2';
+        pill.className = `pill-tag px-3 py-1.5 rounded-full text-xs font-medium text-neutral-700 cursor-default select-none ${anim}`;
+        pill.innerHTML = `<span class="text-red-500 mr-1 text-[10px]">📍</span>${item.panchayat}`;
+        container.appendChild(pill);
+      });
+    }
+
+    // ब्लॉक लिस्ट तैयार करना
+    function populateBlocks(list) {
+      const blockSelect = document.getElementById("blockSelect");
+      const blocks = [...new Set(list.map(item => item.block))].filter(Boolean);
+
+      blocks.forEach(b => {
+        const opt = document.createElement("option");
+        opt.value = b;
+        opt.textContent = `${b} ब्लॉक`;
+        blockSelect.appendChild(opt);
+      });
+    }
+
+    // ब्लॉक बदलने पर ग्राम पंचायतें फ़िल्टर करना
+    function onBlockChange() {
+      const block = document.getElementById("blockSelect").value;
+      const panchayatSelect = document.getElementById("panchayatSelect");
+      panchayatSelect.innerHTML = '<option value="">— ग्राम पंचायत का चयन करें —</option>';
+
+      if (!block) {
+        panchayatSelect.disabled = true;
+        return;
+      }
+
+      const filtered = masterData.filter(item => item.block === block);
+      filtered.sort((a, b) => a.panchayat.localeCompare(b.panchayat));
+
+      filtered.forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.panchayat;
+        opt.textContent = item.panchayat;
+        panchayatSelect.appendChild(opt);
+      });
+
+      panchayatSelect.disabled = false;
+    }
+
+    // कार्ड से भूमिका चयन
+    function selectRole(roleVal) {
+      document.getElementById("userRole").value = roleVal;
+    }
+
+    // आवेदन सबमिशन (Google Sheet के Registrations टैब में सीधा राइट)
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById("submitBtn");
+      const msg = document.getElementById("formMsg");
+
+      const payload = {
+        name: document.getElementById("userName").value.trim(),
+        mobile: document.getElementById("userMobile").value.trim(),
+        role: document.getElementById("userRole").value,
+        tahsil: "Atrauli",
+        block: document.getElementById("blockSelect").value,
+        panchayat: document.getElementById("panchayatSelect").value
+      };
+
+      btn.disabled = true;
+      btn.innerHTML = `<span>कृपया प्रतीक्षा करें...</span>`;
+      msg.className = "hidden text-center text-xs py-2.5 px-3 rounded-xl mt-2 font-medium";
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        msg.textContent = "आपका आवेदन सफलतापूर्वक दर्ज कर लिया गया है! संपादकीय सत्यापन के बाद संपर्क किया जाएगा।";
+        msg.className = "block text-center text-xs py-2.5 px-3 rounded-xl mt-2 font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+        document.getElementById("regForm").reset();
+        document.getElementById("panchayatSelect").disabled = true;
+      } catch (err) {
+        console.error("Submission failed:", err);
+        msg.textContent = "डेटा भेजने में समस्या आई, कृपया पुनः प्रयास करें।";
+        msg.className = "block text-center text-xs py-2.5 px-3 rounded-xl mt-2 font-medium bg-red-50 text-red-800 border border-red-200";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>आवेदन सुरक्षित दर्ज करें</span>`;
+      }
+    }
+
+    // डिजिटल आई-कार्ड स्टेटस चेकर
+    function trackApplicationStatus() {
+      const mobile = document.getElementById("trackMobile").value.trim();
+      const resBox = document.getElementById("statusResult");
+      if (!mobile || mobile.length < 10) {
+        alert("कृपया 10 अंकों का मान्य मोबाइल नंबर दर्ज करें");
+        return;
+      }
+
+      resBox.className = "mt-4 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900";
+      resBox.innerHTML = `
+        <div class="flex items-center space-x-3">
+          <img src="skgb news .jpg" class="w-9 h-9 rounded-xl object-cover border border-amber-300" onerror="this.src='https://placehold.co/60x60/E31B23/ffffff?text=S'" />
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+              <p class="font-bold text-neutral-900">आवेदन समीक्षाधीन (Under Review)</p>
+            </div>
+            <p class="text-[11px] text-neutral-600 mt-0.5">मोबाइल नंबर: <strong>${mobile}</strong></p>
+          </div>
+        </div>
+        <p class="text-[11px] text-amber-800 mt-2.5 leading-relaxed">
+          आपका पंजीकरण ब्यूरो डेस्क को प्राप्त हो चुका है। अतरौली तहसील संपादकीय टीम द्वारा विवरण की पुष्टि होते ही आपका आधिकारिक डिजिटल पहचान-पत्र (Press / Reporter ID) यहाँ सक्रिय कर दिया जाएगा।
+        </p>
+      `;
+    }
+  </script>
+</body>
+</html>

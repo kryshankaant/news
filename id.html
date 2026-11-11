@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>डिजिटल आई-कार्ड सत्यापन • सब कुछ घर बैठे न्यूज़</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- html2canvas for instant card download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Devanagari", sans-serif;
+      background-color: #F8F9FA;
+      color: #1D1D1F;
+      -webkit-font-smoothing: antialiased;
+    }
+    .apple-glass {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(230, 232, 236, 0.85);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    }
+    .id-card-render {
+      background: linear-gradient(145deg, #18181b 0%, #09090b 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    @media print {
+      body * { visibility: hidden; }
+      #printableArea, #printableArea * { visibility: visible; }
+      #printableArea { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white">
+
+  <!-- हेडर (मुख्य हिंदी लोगो skgb.png एवं पूर्ण नेविगेशन) -->
+  <header class="sticky top-0 z-50 apple-glass border-b border-neutral-200/80 px-4 sm:px-8 py-3 no-print">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- मुख्य ब्रांड लोगो (skgb.png) -->
+        <a href="index.html">
+          <img src="skgb.png" alt="सब कुछ घर बैठे न्यूज़" class="h-10 sm:h-12 w-auto object-contain cursor-pointer" onerror="this.src='https://placehold.co/180x60/E31B23/ffffff?text=सब+कुछ+घर+बैठे+न्यूज़'" />
+        </a>
+        <div class="hidden sm:block border-l border-neutral-300 pl-3">
+          <span class="text-xs font-semibold text-neutral-800 block leading-tight">तहसील एवं विकास खंड स्तरीय डिजिटल संवाद नेटवर्क</span>
+          <span class="text-[10px] text-neutral-500 font-medium">स्वतंत्र एवं निष्पक्ष ग्रामीण पत्रकारिता मंच</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2.5">
+        <a href="index.html" class="text-xs px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium transition flex items-center gap-1">
+          <span>←</span> <span>मुख्य पोर्टल</span>
+        </a>
+        <a href="index.html#join-section" class="text-xs px-3.5 py-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-medium shadow-sm transition">
+          नया पंजीकरण
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- मुख्य बॉडी -->
+  <main class="max-w-xl mx-auto px-4 sm:px-6 py-8 w-full flex-1 flex flex-col justify-center">
+
+    <!-- सर्च व सत्यापन बॉक्स -->
+    <section class="apple-glass rounded-3xl p-6 sm:p-7 border border-neutral-200 shadow-sm mb-6 no-print">
+      <div class="text-center mb-5">
+        <div class="inline-block p-2.5 rounded-2xl bg-red-50 text-red-600 mb-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+          </svg>
+        </div>
+        <h1 class="text-lg font-bold text-neutral-900">डिजिटल पहचान-पत्र (आई-कार्ड) सत्यापन</h1>
+        <p class="text-xs text-neutral-500 mt-0.5">पंजीकृत मोबाइल नंबर दर्ज करके अपना आधिकारिक आई-कार्ड देखें व डाउनलोड करें</p>
+      </div>
+
+      <div class="flex gap-2">
+        <input type="tel" id="mobileInput" placeholder="10 अंकों का मोबाइल नंबर दर्ज करें"
+          class="flex-1 px-4 py-2.5 rounded-xl bg-white/90 border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 transition" />
+        <button onclick="checkStatusManual()" id="searchBtn"
+          class="px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-black text-white text-xs font-semibold shadow transition active:scale-95">
+          सत्यापित करें
+        </button>
+      </div>
+    </section>
+
+    <!-- लोडिंग एनीमेशन -->
+    <div id="loadingBox" class="hidden apple-glass rounded-3xl p-8 text-center border border-neutral-200 mb-6 no-print">
+      <div class="inline-block animate-spin h-7 w-7 border-2 border-red-600 border-t-transparent rounded-full mb-3"></div>
+      <p class="text-xs font-medium text-neutral-600">Google Sheet डेटाबेस से सत्यापन स्थिति जाँची जा रही है...</p>
+    </div>
+
+    <!-- नतीजा / आई-कार्ड कंटेनर -->
+    <div id="resultContainer" class="hidden mb-8"></div>
+
+    <!-- शिकायत निवारण तंत्र (Grievance Redressal - IT Rules 2021) -->
+    <section class="rounded-3xl p-5 bg-neutral-100/90 border border-neutral-200 text-xs text-neutral-700 no-print">
+      <div class="flex items-center space-x-2 mb-1.5">
+        <span class="text-base">⚖️</span>
+        <h4 class="font-bold text-xs text-neutral-900">शिकायत निवारण तंत्र (Grievance Redressal)</h4>
+      </div>
+      <p class="text-[11px] text-neutral-600 mb-2 leading-relaxed">
+        आई-कार्ड सत्यापन या पोर्टल संबंधी किसी भी आपत्ति के निस्तारण हेतु अधिकृत विवरण:
+      </p>
+      <div class="bg-white p-3 rounded-2xl border border-neutral-200 space-y-1 text-[11px]">
+        <div><span class="text-neutral-400">अधिकारी:</span> <strong class="text-neutral-900">कृष्ण कांत भारद्वाज (Grievance Officer)</strong></div>
+        <div><span class="text-neutral-400">ईमेल:</span> <a href="mailto:sabkuchhgharbaithenews@gmail.com" class="text-red-600 font-semibold hover:underline">sabkuchhgharbaithenews@gmail.com</a></div>
+        <div><span class="text-neutral-400">कार्यालय:</span> <span class="text-neutral-800 font-medium">सब कुछ घर बैठे न्यूज़, नहल, अतरौली, अलीगढ़ (उ.प्र.) - 202280</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- फुटर -->
+  <footer class="py-6 text-center text-xs text-neutral-400 border-t border-neutral-200/80 bg-white/60 no-print">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center space-x-2">
+        <img src="skgb.png" alt="Logo" class="h-5 w-auto object-contain opacity-70" onerror="this.style.display='none'" />
+        <span>© 2026 सब कुछ घर बैठे न्यूज़ • अतरौली परिक्षेत्र</span>
+      </div>
+      <p class="text-[11px] text-neutral-400">पत्रकारिता की शुचिता, सत्यनिष्ठा एवं ग्रामीण सशक्तिकरण को समर्पित</p>
+    </div>
+  </footer>
+
+  <!-- जावास्क्रिप्ट -->
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0J7GrsmXcCyAj8gQnSxAYg_PXMcmhN_r_gj-lXeYV55_GIlt9yrtzHxbUDT5xKQ7c/exec";
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // URL में यदि ?mobile=XXXXXXXXXX हो तो स्वतः फेच करना
+      const params = new URLSearchParams(window.location.search);
+      const urlMobile = params.get("mobile");
+      if (urlMobile) {
+        document.getElementById("mobileInput").value = urlMobile;
+        fetchStatus(urlMobile);
+      }
+    });
+
+    function checkStatusManual() {
+      const mobile = document.getElementById("mobileInput").value.trim().replace(/\D/g, "");
+      if (!mobile || mobile.length < 10) {
+        alert("कृपया 10 अंकों का मान्य मोबाइल नंबर दर्ज करें");
+        return;
+      }
+      fetchStatus(mobile);
+    }
+
+    async function fetchStatus(mobile) {
+      const loadBox = document.getElementById("loadingBox");
+      const resContainer = document.getElementById("resultContainer");
+      const btn = document.getElementById("searchBtn");
+
+      loadBox.classList.remove("hidden");
+      resContainer.classList.add("hidden");
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=checkStatus&mobile=${encodeURIComponent(mobile)}`);
+        const json = await res.json();
+        loadBox.classList.add("hidden");
+        resContainer.classList.remove("hidden");
+
+        if (!json.found) {
+          resContainer.innerHTML = `
+            <div class="apple-glass rounded-3xl p-6 text-center border border-red-200 bg-red-50/60 no-print">
+              <span class="text-3xl block mb-2">⚠️</span>
+              <h2 class="text-sm font-bold text-red-900 mb-1">रिकॉर्ड प्राप्त नहीं हुआ</h2>
+              <p class="text-xs text-red-700 leading-relaxed mb-4">मोबाइल नंबर <strong>${mobile}</strong> का कोई पंजीकरण दर्ज नहीं है। कृपया पहले मुख्य पोर्टल पर जाकर पंजीकरण करें।</p>
+              <a href="index.html#join-section" class="inline-block px-4 py-2 rounded-xl bg-neutral-900 text-white text-xs font-semibold">
+                नया पंजीकरण करें
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        const user = json.data;
+        const statusClean = (user.status || "").toLowerCase().trim();
+
+        if (statusClean === "approved") {
+          // अनुमोदित -> आई-कार्ड एवं डाउनलोड/प्रिंट एक्शन बार
+          resContainer.innerHTML = `
+            <!-- एक्शन बार -->
+            <div class="flex items-center justify-between mb-3 px-1 no-print">
+              <span class="text-xs font-bold text-emerald-700 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
+                सत्यापित पहचान-पत्र
+              </span>
+              <div class="flex gap-2">
+                <button onclick="downloadIDCard()" class="px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold shadow transition flex items-center gap-1 active:scale-95">
+                  <span>📥</span> <span>डाउनलोड (PNG)</span>
+                </button>
+                <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-white hover:bg-neutral-100 text-neutral-800 text-xs font-semibold border border-neutral-300 shadow-sm transition active:scale-95">
+                  🖨️ प्रिंट
+                </button>
+              </div>
+            </div>
+
+            <!-- डिजिटल आई-कार्ड (प्रिंटेबल एवं एक्सपोर्टेबल एरिया) -->
+            <div id="printableArea" class="id-card-render rounded-3xl p-6 sm:p-7 text-white relative overflow-hidden border border-neutral-700">
+              
+              <!-- बैकग्राउंड वाटरमार्क -->
+              <div class="absolute -right-8 -bottom-8 opacity-5 pointer-events-none">
+                <img src="skgb.png" class="w-64 h-64 object-contain" />
+              </div>
+
+              <!-- शीर्ष बार -->
+              <div class="flex items-center justify-between border-b border-neutral-700/80 pb-3.5 mb-4">
+                <div class="flex items-center space-x-3">
+                  <img src="skgb news .jpg" alt="Reporter Wing Icon" class="w-12 h-12 rounded-2xl object-cover border border-neutral-600 shadow" onerror="this.src='https://placehold.co/80x80/E31B23/ffffff?text=S'" />
+                  <div>
+                    <h2 class="font-bold text-sm tracking-tight text-white leading-tight">सब कुछ घर बैठे न्यूज़</h2>
+                    <span class="text-[10px] text-emerald-400 font-semibold tracking-wider uppercase block mt-0.5">सत्यापित फील्ड प्रतिनिधि (VERIFIED)</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 animate-pulse"></span>
+                    सक्रिय
+                  </span>
+                </div>
+              </div>
+
+              <!-- विवरण ग्रिड -->
+              <div class="grid grid-cols-2 gap-3 text-xs mb-4">
+                <div>
+                  <span class="text-neutral-400 block text-[10px]">अधिकृत नाम</span>
+                  <span class="font-bold text-white text-sm">${user.name}</span>
+                </div>
+                <div>
+                  <span class="text-neutral-400 block text-[10px]">पदनाम / विंग</span>
+                  <span class="font-semibold text-red-400">${user.role}</span>
+                </div>
+                <div>
+                  <span class="text-neutral-400 block text-[10px]">ग्राम पंचायत</span>
+                  <span class="font-semibold text-white">${user.panchayat}</span>
+                </div>
+                <div>
+                  <span class="text-neutral-400 block text-[10px]">विकास खंड (ब्लॉक)</span>
+                  <span class="font-semibold text-white">${user.block}</span>
+                </div>
+              </div>
+
+              <!-- कार्ड फुटर -->
+              <div class="pt-3 border-t border-neutral-700/80 flex items-center justify-between text-[10px] text-neutral-400">
+                <div class="flex items-center space-x-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span>कार्यक्षेत्र: अतरौली तहसील</span>
+                </div>
+                <span class="font-mono text-neutral-400">SKGB-VERIFIED-ID</span>
+              </div>
+            </div>
+
+            <p class="text-[10px] text-neutral-400 text-center mt-3 no-print">
+              * यह डिजिटल पहचान-पत्र सब कुछ घर बैठे न्यूज़ के आंतरिक सत्यापन सिस्टम द्वारा अधिकृत है।
+            </p>
+          `;
+        } else {
+          // समीक्षाधीन स्थिति
+          resContainer.innerHTML = `
+            <div class="apple-glass rounded-3xl p-6 border border-amber-200 bg-amber-50/70 no-print">
+              <div class="flex items-center space-x-3 mb-3">
+                <img src="skgb news .jpg" class="w-11 h-11 rounded-2xl object-cover border border-amber-300" onerror="this.src='https://placehold.co/80x80/E31B23/ffffff?text=S'" />
+                <div>
+                  <div class="flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+                    <h2 class="font-bold text-sm text-neutral-900">आवेदन समीक्षाधीन (${user.status || 'Pending'})</h2>
+                  </div>
+                  <p class="text-xs text-neutral-600 mt-0.5">नाम: <strong>${user.name}</strong> | पंचायत: <strong>${user.panchayat}</strong></p>
+                </div>
+              </div>
+              <p class="text-xs text-amber-800 leading-relaxed mb-4">
+                आपका आवेदन ब्यूरो डेस्क को प्राप्त हो चुका है। अतरौली तहसील संपादकीय टीम द्वारा सत्यापन पूरा होते ही आपका डिजिटल आई-कार्ड यहाँ डाउनलोड हेतु उपलब्ध होगा।
+              </p>
+              <a href="index.html" class="inline-block px-4 py-2 rounded-xl bg-neutral-900 text-white text-xs font-semibold">
+                मुख्य पोर्टल पर वापस जाएँ
+              </a>
+            </div>
+          `;
+        }
+
+      } catch (err) {
+        console.error("Status check failed:", err);
+        loadBox.classList.add("hidden");
+        resContainer.classList.remove("hidden");
+        resContainer.innerHTML = `
+          <div class="apple-glass rounded-3xl p-6 text-center border border-red-200 bg-red-50/50 no-print">
+            <p class="text-xs text-red-700">सर्वर से जुड़ने में तकनीकी समस्या आई। कृपया इंटरनेट जाँचकर पुनः प्रयास करें।</p>
+          </div>
+        `;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // आई-कार्ड को इमेज के रूप में डाउनलोड करने का फंक्शन
+    function downloadIDCard() {
+      const card = document.getElementById("printableArea");
+      if (!card) return;
+      html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = `SKGB_Reporter_Card_${document.getElementById("mobileInput").value}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
